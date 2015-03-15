@@ -10,6 +10,8 @@
 <link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
 <link rel="import" href="../bower_components/core-localstorage/core-localstorage.html">
 <link rel="import" href="../bower_components/core-item/core-item.html">
+<link rel="import" href="../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../bower_components/core-menu/core-menu.html">
 <link rel="import" href="../bower_components/paper-toggle-button/paper-toggle-button.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/paper-slider/paper-slider.html">
@@ -20,24 +22,22 @@
 
 <link rel="import" href="umfrage-item.html">
 
-
-
 <polymer-element name="umfrage-app">
   <template>
   <link rel="stylesheet" href="../styles.css">
   <core-drawer-panel responsiveWidth="600px" id="drawerPanel">
     <core-header-panel drawer>
         <core-toolbar>Menu</core-toolbar>
-
+        <core-menu>
+        	<paper-item>Menu1</paper-item>
+        	<paper-item>Menu2</paper-item>
+        </core-menu>
     </core-header-panel>
-
-
 
     <core-header-panel main>
       <core-toolbar>
         <paper-icon-button icon="menu" on-click="{{toggleDrawer}}"></paper-icon-button>
         <span flex>Umfrage</span>
-
         <paper-fab hidden?="{{!valid}}" icon="icons:send" on-click="{{sendAnswers}}"></paper-fab>
       </core-toolbar>
       <div class="content">
@@ -45,7 +45,7 @@
           <umfrage-item question="{{question}}" answer="{{answers[questionIndex]}}"></umfrage-item>
         </template>
         <core-localstorage name="answers" value="{{answers}}"></core-localstorage>
-        <core-ajax id="sendAnswers" url="../saveAnswers.php" method="POST"></core-ajax>
+        <core-ajax id="sendAnswers" url="../saveAnswers.php" handleAs="json" method="POST"></core-ajax>
         <core-ajax auto url="../questions.json" handleAs="json" on-core-response="{{answersChanged}}" response="{{questions}}"></core-ajax>
       </div>
     </core-header-panel>
@@ -63,7 +63,7 @@
         }
       },
       sendAnswers: function() {
-        this.$.sendAnswers.body = this.answers;
+        this.$.sendAnswers.body = JSON.stringify(this.answers);
         this.$.sendAnswers.go();
       }
     });
