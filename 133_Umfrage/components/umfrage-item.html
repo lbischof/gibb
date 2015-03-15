@@ -1,0 +1,25 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-radio-group/paper-radio-group.html">
+
+<polymer-element name="umfrage-item" attributes="question answer">
+  <template>
+    <style>
+
+    </style>
+    <div horizontal layout>
+      <span flex>{{question}}</span>
+      <paper-radio-group selected="{{answer}}">
+        <paper-radio-button name="0" label="nein"></paper-radio-button>
+        <paper-radio-button name="25" label="eher nein"></paper-radio-button>
+        <paper-radio-button name="75" label="eher ja"></paper-radio-button>
+        <paper-radio-button name="100" label="ja"></paper-radio-button>
+        <paper-radio-button name="50" label="keine Meinung"></paper-radio-button>
+      </paper-radio-group>
+    </div>
+  </template>
+  <script>
+    Polymer('umfrage-item', {
+
+    });
+  </script>
+</polymer-element>

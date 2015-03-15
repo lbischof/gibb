@@ -1,0 +1,16 @@
+{
+  "name": "Umfrage",
+  "description": "",
+  "homepage": "",
+  "keywords": [
+  ],
+  "author": "",
+  "private": true,
+  "dependencies": {
+    "polymer": "Polymer/polymer#latest",
+    "paper-elements": "Polymer/paper-elements#latest",
+    "core-elements": "Polymer/core-elements",
+    "font-roboto": "Polymer/font-roboto"
+
+  }
+}

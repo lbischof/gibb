@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Basic Express 2010
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Softeis", "Softeis\Softeis.vbproj", "{F3C0B656-2664-489E-A360-2BAEEAAD1D18}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F3C0B656-2664-489E-A360-2BAEEAAD1D18}.Debug|x86.ActiveCfg = Debug|x86
+		{F3C0B656-2664-489E-A360-2BAEEAAD1D18}.Debug|x86.Build.0 = Debug|x86
+		{F3C0B656-2664-489E-A360-2BAEEAAD1D18}.Release|x86.ActiveCfg = Release|x86
+		{F3C0B656-2664-489E-A360-2BAEEAAD1D18}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
