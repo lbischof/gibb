@@ -19,6 +19,10 @@
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/paper-shadow/paper-shadow.html">
 <link rel="import" href="../bower_components/core-ajax/core-ajax.html">
+<link rel="import" href="../bower_components/core-pages/core-pages.html">
+
+<link rel="import" href="../bower_components/core-animated-pages/core-animated-pages.html">
+<link rel="import" href="../bower_components/core-animated-pages/transitions/slide-from-right.html">
 
 <link rel="import" href="umfrage-item.html">
 
@@ -26,24 +30,31 @@
   <template>
   <link rel="stylesheet" href="../styles.css">
   <core-drawer-panel responsiveWidth="600px" id="drawerPanel">
-    <core-header-panel drawer>
+    <core-header-panel drawer mode="seamed">
         <core-toolbar>Menu</core-toolbar>
-        <core-menu>
-        	<paper-item>Menu1</paper-item>
+        <core-menu selected="{{page}}" on-click="{{togglePanel}}">
+        	<paper-item>Umfrage</paper-item>
         	<paper-item>Menu2</paper-item>
         </core-menu>
     </core-header-panel>
 
-    <core-header-panel main>
+    <core-header-panel main mode="seamed">
       <core-toolbar>
-        <paper-icon-button icon="menu" on-click="{{toggleDrawer}}"></paper-icon-button>
+        <paper-icon-button icon="menu" core-drawer-toggle></paper-icon-button>
         <span flex>Umfrage</span>
-        <paper-fab hidden?="{{!valid}}" icon="icons:send" on-click="{{sendAnswers}}"></paper-fab>
       </core-toolbar>
       <div class="content">
-        <template repeat="{{question, questionIndex in questions}}">
-          <umfrage-item question="{{question}}" answer="{{answers[questionIndex]}}"></umfrage-item>
-        </template>
+      	<core-pages id="pages" selected="{{page}}">
+      		<section>
+        		<template repeat="{{question, questionIndex in questions}}">
+          			<umfrage-item question="{{question}}" answer="{{answers[questionIndex]}}"></umfrage-item>
+        		</template>
+   		        <paper-fab hidden?="{{!valid}}" icon="icons:send" on-click="{{sendAnswers}}"></paper-fab>
+        	</section>
+        	<section>
+        		<span>Page two</span>
+        	</section>
+        </core-pages>
         <core-localstorage name="answers" value="{{answers}}"></core-localstorage>
         <core-ajax id="sendAnswers" url="../saveAnswers.php" handleAs="json" method="POST"></core-ajax>
         <core-ajax auto url="../questions.json" handleAs="json" on-core-response="{{answersChanged}}" response="{{questions}}"></core-ajax>
@@ -56,6 +67,7 @@
     Polymer('umfrage-app', {
       answers: [],
       valid: false,
+      page: 0,
       answersChanged: function() {
         var size = this.answers.filter(function(value) { return value !== undefined }).length;
         if (this.questions && size == this.questions.length) {
@@ -65,7 +77,11 @@
       sendAnswers: function() {
         this.$.sendAnswers.body = JSON.stringify(this.answers);
         this.$.sendAnswers.go();
+      },
+      togglePanel: function() {
+      	this.$.drawerPanel.togglePanel();
       }
+     
     });
   </script>
 </polymer-element>
