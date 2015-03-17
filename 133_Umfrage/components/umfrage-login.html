@@ -7,17 +7,14 @@
 <link rel="import" href="../bower_components/paper-tabs/paper-tabs.html">
 <link rel="import" href="../bower_components/core-collapse/core-collapse.html">
 
+
 <polymer-element name="umfrage-login">
   <template>
     <style>
     :host {
-    	font-family: RobotoDraft, 'Helvetica Neue', Helvetica, Arial;
     	width: 500px;
+    	font-family: RobotoDraft, 'Helvetica Neue', Helvetica, Arial;
     	display: block;
-    	margin: auto;
-    	margin-top: 100px;
-    	background: #fff;
-    	border-radius: 3px;
     }
     paper-tabs {
     	color: #526E9C;
@@ -30,11 +27,17 @@
     paper-tabs paper-tab::shadow #ink {
       color: #4F7DC9;
     }
-    .content {
-    	padding: 15px;
-    }
     
+    paper-button {
+    	float: right;
+    	position: relative;
+    	top: 10px;
+    	background-color: #4F7DC9;
+    	color: #fff;
+    	margin: 0;
+    }
     </style>
+    
     <paper-tabs selected="{{tab}}" class="transparent-teal">
   		<paper-tab>Login</paper-tab>
   		<paper-tab>Register</paper-tab>
@@ -49,15 +52,14 @@
     	</paper-input-decorator>
     	<core-collapse id="collapse" opened="{{tab}}">
   			<paper-input-decorator floatingLabel label="Password" error="Value must start with a number!" autoValidate isInvalid="{{!$.password2.validity.valid}}">
-        	<input id="password2" is="core-input" pattern="^[0-9].*">
+        	<input type="password" id="password2" is="core-input" pattern="^[0-9].*">
     		</paper-input-decorator>
     		<paper-input-decorator floatingLabel label="Name" error="Bitte geben Sie ihren vollen Name an." autoValidate isInvalid="{{!$.name.validity.valid}}">
-        	<input id="name" is="core-input" pattern="^[A-Za-z]+\s[A-Za-z]+$">
+        	<input type="password" id="name" is="core-input" pattern="^[A-Za-z]+\s[A-Za-z]+$">
     		</paper-input-decorator>
 		</core-collapse>
       	<paper-button on-click="{{submit}}">{{tab ? 'Register' : 'Login'}}</paper-button>
   	</div>
-   
   </template>
   <script>
     Polymer('umfrage-login', {
