@@ -1,5 +1,6 @@
 :host {
   font-family: RobotoDraft, 'Helvetica Neue', Helvetica, Arial;
+  color: #444;
 }
 
 [main] {
@@ -8,7 +9,7 @@
 }
 
 core-toolbar {
-  background-color: #526E9C;
+  background-color: #303F9F;
   color: #fff;
 }
 

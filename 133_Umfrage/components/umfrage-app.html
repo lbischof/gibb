@@ -4,44 +4,161 @@
 <link rel="import" href="../bower_components/core-header-panel/core-header-panel.html">
 <link rel="import" href="../bower_components/core-toolbar/core-toolbar.html">
 <link rel="import" href="../bower_components/core-icons/core-icons.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/paper-fab/paper-fab.html">
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
 <link rel="import" href="../bower_components/core-localstorage/core-localstorage.html">
 <link rel="import" href="../bower_components/core-item/core-item.html">
 <link rel="import" href="../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../bower_components/core-menu/core-menu.html">
 <link rel="import" href="../bower_components/paper-toggle-button/paper-toggle-button.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/paper-slider/paper-slider.html">
 <link rel="import" href="../bower_components/paper-toast/paper-toast.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/paper-shadow/paper-shadow.html">
 <link rel="import" href="../bower_components/core-ajax/core-ajax.html">
 <link rel="import" href="../bower_components/core-pages/core-pages.html">
 
+<link rel="import" href="../bower_components/core-animated-pages/core-animated-pages.html">
+<link rel="import" href="../bower_components/core-animated-pages/transitions/slide-from-right.html">
 <link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
 
+<link rel="import" href="umfrage-item.html">
 <link rel="import" href="umfrage-login.html">
-<link rel="import" href="umfrage-main.html">
-<link rel="import" href="umfrage-index.html">
 
 
 <polymer-element name="umfrage-app">
   <template>
-  	<core-pages id="pages" selected="0" fit>
-  		<section>
-  			<paper-dialog transition="core-transition-center" opened="true">
-    			<umfrage-login></umfrage-login>
-  			</paper-dialog>
-  			<umfrage-index></umfrage-index>
-  		</section>
-  		<section>
-  			<umfrage-main></umfrage-main>
-  		</section>
+  <style>
+    [drawer] {
+      background-color: #fff;
+      box-shadow: 1px 0 1px rgba(0,0,0,.1);
+    }
+
+    [drawer] > core-item {
+      padding: 1em;
+    }
+
+    [drawer] core-toolbar {
+      background-color: #FF4081;
+      color: #fff;
+    }
+
+    paper-fab {
+      background-color: #FF4081;
+      position: fixed !important;
+      bottom: 2em;
+      right: 2em;
+      z-index: 10;
+    }
+    paper-shadow {
+      width: 90%;
+      max-width: 1000px;
+      background: white;
+      margin: auto;
+      margin-top: 20px;
+    }
+    paper-progress {
+      width: 100%;
+      position: relative;
+      bottom: 11px;
+    }
+    paper-progress::shadow #activeProgress {
+      background-color: #FF4081;
+      transition: 3s ease-out;
+    }
+    paper-fab {
+      transition: 0.5s ease-out;
+      transform: scale(0);
+    }
+    paper-fab.valid {
+      transform: scale(1);
+    }
+    paper-progress.valid {
+      transform: scale(0);
+    }
+  </style>
+  <link rel="stylesheet" href="../styles.css">
+  <core-drawer-panel forceNarrow="true" id="drawerPanel" disableSwipe="{{!loggedIn}}">
+    <core-header-panel drawer mode="seamed">
+        <core-toolbar>Menu</core-toolbar>
+        <core-menu selected="{{page}}" on-click="{{togglePanel}}">
+        	<paper-item>Umfrage</paper-item>
+        	<paper-item>Menu2</paper-item>
+        </core-menu>
+    </core-header-panel>
+
+    <core-header-panel main mode="waterfall">
+      <core-toolbar>
+        <paper-icon-button hidden?="{{!loggedIn}}" icon="menu" core-drawer-toggle></paper-icon-button>
+        <span flex>Umfrage</span>
+        <umfrage-login loggedIn="{{loggedIn}}"></umfrage-login>
+      </core-toolbar>
+      <div class="content">
+      	<core-pages id="pages" selected="{{page}}">
+      		<section>
+            <paper-progress class="{{valid}}" value="{{percent}}"></paper-progress>
+            <paper-shadow z="1">
+        		  <template repeat="{{question, questionIndex in questions}}">
+          			<umfrage-item question="{{question}}" answer="{{answers[questionIndex]}}"></umfrage-item>
+        		  </template>
+            </paper-shadow>
+   		        <paper-fab class="{{valid}}" icon="icons:send" on-click="{{sendAnswers}}"></paper-fab>
+   		        <core-localstorage name="answers" value="{{answers}}"></core-localstorage>
+        		<core-ajax id="sendAnswers" url="../saveAnswers.php" handleAs="json" method="POST"></core-ajax>
+        		<core-ajax auto url="../getQuestions.php" handleAs="json" response="{{questions}}"></core-ajax>
+        	</section>
+        	<section>
+            <paper-shadow z="1">
+        		<span>Page two</span>
+            </paper-shadow>
+        	</section>
+        </core-pages>
+        
+      </div>
+    </core-header-panel>
+  </core-drawer-panel>
   </template>
 
   <script>
     Polymer('umfrage-app', {
-      
+      answers: [],
+      valid: false,
+      page: 1,
+      percent: 0,
+      loggedIn: false,
+      answersChanged: function() {
+        if (this.questions) {
+          var size = this.answers.filter(function(value) { return value !== undefined }).length;
+          this.percent =  size / this.questions.length * 100;
+          if (size == this.questions.length) {
+            this.valid = 'valid';
+          }
+        }
+      },
+      questionsChanged: function() {
+        if (this.questions) {
+          this.loggedIn = true;
+        } 
+      },
+      loggedInChanged: function() {
+          if (this.loggedIn) {
+            this.page = 0; 
+            this.answersChanged(); // Update answers because they could be in localstorage
+
+          } else {
+            this.page = 1;
+          }
+      },
+      sendAnswers: function() {
+        this.$.sendAnswers.body = JSON.stringify(this.answers);
+        this.$.sendAnswers.go();
+      },
+      togglePanel: function() {
+      	this.$.drawerPanel.togglePanel();
+      }
      
     });
   </script>
