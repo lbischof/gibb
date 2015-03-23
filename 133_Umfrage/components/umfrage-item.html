@@ -4,9 +4,12 @@
 <polymer-element name="umfrage-item" attributes="question answer">
   <template>
     <style>
-
+      div {
+          padding: 20px;
+          border-bottom: 1px solid #e5e5e5;
+      }
     </style>
-    <div horizontal layout>
+    <div horizontal layout center>
       <span flex>{{question}}</span>
       <paper-radio-group selected="{{answer}}">
         <paper-radio-button name="0" label="nein"></paper-radio-button>

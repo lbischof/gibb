@@ -1,0 +1,91 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/font-roboto/roboto.html">
+<link rel="import" href="../bower_components/paper-input/paper-input-decorator.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/core-input/core-input.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="../bower_components/core-collapse/core-collapse.html">
+<link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
+
+
+<polymer-element name="umfrage-login" attributes="loggedIn">
+  <template>
+  	<style>
+  	#transparent-button {
+  		background-color: transparent;
+  		top: 0;
+  		margin: auto;
+  		text-transform: none;
+  	}
+  	#transparent-button core-icon {
+  		margin-right: 10px;
+  	}
+  	</style>
+  	<paper-button id="transparent-button" on-click="{{opendialog}}"><core-icon icon="account-circle"></core-icon>{{ loggedIn ? 'Logout' : 'Login' }}</paper-icon-button>
+    <paper-dialog id="logindialog" transition="core-transition-center">
+     <style> /* Needs to be inside paper-dialog because of scoping */
+    	paper-dialog  {
+    		width: 500px;
+    		font-family: RobotoDraft, 'Helvetica Neue', Helvetica, Arial;
+    	}
+    	paper-tabs {
+    		color: #526E9C;
+    		background-color: transparent;
+    	}
+    	paper-tabs::shadow #selectionBar {
+      		background-color: #526E9C;
+    	}
+    	paper-tabs paper-tab::shadow #ink {
+      		color: #4F7DC9;
+   	 	}	
+    	paper-button {
+    		float: right;
+    		position: relative;
+    		top: 10px;
+    		background-color: #4F7DC9;
+    		color: #fff;
+    		margin: 0;
+    	}
+    </style>
+    <paper-tabs selected="{{tab}}" class="transparent-teal">
+  		<paper-tab>Login</paper-tab>
+  		<paper-tab>Register</paper-tab>
+	</paper-tabs>
+	
+  	<div class="content">
+  		<paper-input-decorator floatingLabel label="email" error="Bitte geben Sie eine valide Email an." autoValidate isInvalid="{{!$.email.validity.valid}}">
+        	<input id="email" is="core-input" type="email">
+    	</paper-input-decorator>
+    	<paper-input-decorator floatingLabel label="Password" error="Value must start with a number!" autoValidate isInvalid="{{!$.password.validity.valid}}">
+        	<input type="password" id="password" is="core-input" pattern="^[0-9].*">
+    	</paper-input-decorator>
+    	<core-collapse id="collapse" opened="{{tab}}">
+  			<paper-input-decorator floatingLabel label="Password" error="Value must start with a number!" autoValidate isInvalid="{{!$.password2.validity.valid}}">
+        		<input type="password" id="password2" is="core-input" pattern="^[0-9].*">
+    		</paper-input-decorator>
+    		<paper-input-decorator floatingLabel label="Name" error="Bitte geben Sie ihren vollen Name an." autoValidate isInvalid="{{!$.name.validity.valid}}">
+        		<input id="name" is="core-input" pattern="^[A-Za-z]+\s[A-Za-z]+$">
+    		</paper-input-decorator>
+		</core-collapse>
+      	<paper-button on-click="{{submit}}">{{tab ? 'Register' : 'Login'}}</paper-button>
+  	</div>
+  	</paper-dialog>
+  </template>
+  <script>
+    Polymer('umfrage-login', {
+    	tab: 0,
+    	loggedIn: false,
+    	submit: function() {
+    		
+    	},
+    	opendialog: function(){
+    		if (this.loggedIn) {
+    			this.loggedIn = false;
+    		} else {
+    			this.$.logindialog.open();
+    		}
+    	}
+    });
+  </script>
+</polymer-element>
