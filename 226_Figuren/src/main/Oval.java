@@ -1,9 +1,10 @@
+package main;
 import java.awt.Graphics;
 
 
-public class Kreis extends Figur {
+public class Oval extends Figur {
 	private int width, height;
-	public Kreis(int x, int y, int width, int height) {
+	public Oval(int x, int y, int width, int height) {
 		super(x, y);
 		this.width = width;
 		this.height = height;
