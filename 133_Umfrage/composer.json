@@ -23,7 +23,6 @@
         "classmap": [
             "tests/",
             "app/Middleware/",
-            "app/Controllers/",
             "app/Models"
         ]
     },

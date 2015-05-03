@@ -1,9 +1,6 @@
 <?php namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\Question;
-use App\Models\Answer;
-
 
 class QuestionsController extends Controller {
 

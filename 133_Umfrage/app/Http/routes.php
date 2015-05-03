@@ -21,4 +21,5 @@ $app->group(['namespace' => $namespace], function() use ($app) {
 	$app->post('/login', 'UsersController@postLogin');
 	$app->get('/logout', 'UsersController@getLogout');
 	$app->get('/register', 'UsersController@getRegister');
+	$app->post('/register', 'UsersController@postRegister');
 });

@@ -1,7 +1,5 @@
 <?php namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-
 class UsersController extends Controller {
 
     public function getLogin() {
@@ -25,9 +23,16 @@ class UsersController extends Controller {
     }
 
     public function postRegister() {
-    	$user = new User(\Request::all());
+        $rules = array(
+            
+        );
+
+        $validator = \Validator::make(\Request::all(), $rules);
+        error_log($validator->fails());
+
+    	/*$user = new User(\Request::all());
     	$user->password = bcrypt($user->password);
-    	$user->save();
+    	$user->save();*/
     }
 
     public function getLogout() {
