@@ -1,5 +1,7 @@
 <?php namespace App\Http\Controllers;
 
+use App\Models\User;
+
 class UsersController extends Controller {
 
     public function getLogin() {
@@ -24,15 +26,21 @@ class UsersController extends Controller {
 
     public function postRegister() {
         $rules = array(
-            
+            'email'             => 'required|email|unique:users',
+            'password'          => 'required|min:6',
+            'password_confirm'  => 'required|same:password'
         );
 
         $validator = \Validator::make(\Request::all(), $rules);
-        error_log($validator->fails());
+        if ($validator->fails()) {
+            return redirect('register');
+        } else {
+            $user = new User(\Request::all());
+            $user->password = bcrypt($user->password);
+            $user->save();
+            return redirect('login')->with('email', \Request::input('email'));
+        }
 
-    	/*$user = new User(\Request::all());
-    	$user->password = bcrypt($user->password);
-    	$user->save();*/
     }
 
     public function getLogout() {
