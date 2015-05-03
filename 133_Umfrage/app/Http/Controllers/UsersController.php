@@ -40,6 +40,7 @@ class UsersController extends Controller {
     }
 
     public function getLogout() {
+        \Session::forget('user_hash');
     	\Auth::logout();
 		return redirect('login');
     }

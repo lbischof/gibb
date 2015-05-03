@@ -10,8 +10,11 @@
                     {{ $user->email }}                   
                 </div>
                 <div class="col s5">
-                    {{ $user->score }}
+                    {{ $user->percent }}%
                 </div>
         	</div>
         @endforeach
+        @if ($user_hash)
+            <a href="/">Eigene Antworten anzeigen</a>
+        @endif
 @stop

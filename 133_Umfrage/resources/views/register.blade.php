@@ -14,19 +14,19 @@
             <h1>Register</h1>
             <form action="/register" method="post">
                 <div class="input-field">
-                  <input id="email" type="text" class="validate">
+                  <input id="email" type="email" class="validate" required>
                   <label for="email">Email</label>
                 </div>
                 <div class="input-field">
-                  <input id="password" type="text" class="validate">
+                  <input id="password" type="password" class="validate" required>
                   <label for="password">Passwort</label>
                 </div>
             	<div class="input-field">
-                  <input id="password_confirm" type="text" class="validate">
-                  <label for="password_confirm">Passwort</label>
+                  <input id="password_confirm" type="password" class="validate" required>
+                  <label for="password_confirm">Passwort bestätigen</label>
                 </div>
                 <div class="input-field">
-                    <input id="name" type="text" class="validate">
+                    <input id="name" type="text" class="validate" required>
                     <label for="name">Name</label>
                 </div>
             	<button class="waves-effect waves-light btn">Register</button>

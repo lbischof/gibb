@@ -16,10 +16,10 @@ class CreateAnswersTable extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('value');
-			$table->string('user_id');
+			$table->string('user_hash');
 			$table->integer('question_id')->unsigned();
 			$table->foreign('question_id')->references('id')->on('questions');
-			$table->unique(array('question_id', 'user_id'));
+			$table->unique(array('question_id', 'user_hash'));
 		});
 	}
 

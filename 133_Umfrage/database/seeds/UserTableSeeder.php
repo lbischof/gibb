@@ -20,19 +20,18 @@ class UserTableSeeder extends Seeder {
             'name' => 'Taylor Otwell',
             'email' => 'taylorotwell1@gmail.com',
             'password' => 'greatsecret',
-            'score' => 400
+            'score' => 200
         ]);
         User::create([
             'name' => 'Some Name',
             'email' => 'taylorotwell2@gmail.com',
             'password' => 'greatsecret',
-            'score' => 200
+            'score' => 50
         ]);
         User::create([
             'name' => 'Max Fritz',
             'email' => 'taylorotwell3@gmail.com',
-            'password' => 'greatsecret',
-            'score' => 50
+            'password' => 'greatsecret'
         ]);
     }
 }

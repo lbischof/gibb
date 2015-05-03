@@ -12,11 +12,11 @@
         <h1>Login</h1>
         <form action="/login" method="post">
             <div class="input-field">
-              <input id="email" name="email" type="text" class="validate {{ $email ? 'active' : '' }}" value="{{ $email }}" {{ $email ? '' : 'autofocus' }}>
+              <input id="email" name="email" type="email" class="validate" value="{{ $email }}" {{ $email ? '' : 'autofocus' }} required>
               <label for="email">Email</label>
             </div>
             <div class="input-field">
-              <input id="password" name="password" type="text" class="validate" {{ $email ? 'autofocus' : ''}}>
+              <input id="password" name="password" type="password" class="validate" {{ $email ? 'autofocus' : '' }} required>
               <label for="password">Passwort</label>
             </div>
             <button class="waves-effect waves-light btn">Login</button>

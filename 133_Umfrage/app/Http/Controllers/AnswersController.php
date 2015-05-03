@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Question;
 
 class AnswersController extends Controller {
 
@@ -11,10 +12,11 @@ class AnswersController extends Controller {
 
     public function postAnswers() {
     	$answers = \Request::input('q');
-        $hash_user_id = bcrypt(\Auth::user()->id);
+        $hashed_user_id = bcrypt(\Auth::user()->id);
         $score = 0;
         foreach($answers as $key => $answer) {
-            $answers[$key]['user_id'] = $hash_user_id;
+            $answers[$key]['user_hash'] = $hashed_user_id;
+            $answers[$key]['question_id'] = $key;
             $score += $answer['value'];
         }
     	\DB::table('answers')->insert($answers);
@@ -23,28 +25,20 @@ class AnswersController extends Controller {
     	$user->answered = true;
         $user->score = $score;
     	$user->save();
-    	return redirect('/results');
+
+        \Session::put('user_hash', $hashed_user_id); //save users hash so we can show him his own answers
+
+    	return redirect('/');
     }
     public function getResults() {
+        $user_hash = \Session::get('user_hash'); //Try and get the user_hash. If it's empty we can't show the "Antworten anzeigen" link.
         $current_user_score = \Auth::user()->score;
-        //$max_score
-        $users = \DB::select('select * from users order by abs(score - ?)', [$current_user_score]);
-        $questions_count = \DB::select('select count(*) as count from questions');
-
-        $total_score = $questions_count[0]->count * 100;
-        var_dump($total_score);
+        $total_score = Question::count() * 100;
+        $users = \DB::select('select email, score, abs(score - ?) as distance from users where score not null order by distance', [$current_user_score]);
         foreach ($users as $key => $user) {
-            $users[$key]->percent = 100 * $user->score / $total_score;       
+            $users[$key]->percent = abs((100 * $user->distance / $total_score) - 100);  
         }
-        //$current_user_percent = 100 * $current_user_score / $total_score;
-        
-        print_r($users);
-        //$users = User::whereNotNull('score')->get();
-        /*$total_score = 500;
-        foreach($users as $key => $user) {
-            $users[$key] = $total_score / $user->score * 100;            
-        } */
-        //print_r($users);
-        return view('results', ['users' => $users ]);
+                
+        return view('results', ['users' => $users, 'user_hash' => $user_hash ]);
     }
 }
