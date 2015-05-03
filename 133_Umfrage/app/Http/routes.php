@@ -14,6 +14,7 @@ $namespace = 'App\Http\Controllers';
 $app->group(['middleware' => 'auth', 'namespace' => $namespace], function() use ($app) {
 	$app->get('/', 'QuestionsController@getQuestions');
 	$app->post('/save', 'AnswersController@postAnswers');
+    $app->get('/results', 'AnswersController@getResults');
 });
 
 $app->group(['namespace' => $namespace], function() use ($app) {
