@@ -21,26 +21,22 @@ class UsersController extends Controller {
     }
 
     public function getRegister() {
-    	return view('register');
+        $errors = \Session::get('errors');
+    	return view('register', [ 'errors' => $errors ]);
     }
 
-    public function postRegister() {
+    public function postRegister(\Illuminate\Http\Request $request) {
         $rules = array(
             'email'             => 'required|email|unique:users',
             'password'          => 'required|min:6',
             'password_confirm'  => 'required|same:password'
         );
-
-        $validator = \Validator::make(\Request::all(), $rules);
-        if ($validator->fails()) {
-            return redirect('register');
-        } else {
-            $user = new User(\Request::all());
-            $user->password = bcrypt($user->password);
-            $user->save();
-            return redirect('login')->with('email', \Request::input('email'));
-        }
-
+        $this->validate($request, $rules);
+        
+        $user = new User(\Request::all());
+        $user->password = bcrypt($user->password);
+        $user->save();
+        return redirect('login')->with('email', \Request::input('email'));
     }
 
     public function getLogout() {
