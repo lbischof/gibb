@@ -1,0 +1,83 @@
+body {
+	background: #FFF9C4;
+	color: #444;
+	font-size: 17px;
+}
+body > a {
+	position: absolute;
+	right: 20px;
+	top: 12px;
+}
+.card-panel {
+	margin: 50px auto;
+	padding: 40px;
+}
+.login, .register {
+	max-width: 500px;
+	text-align: center;
+}
+h1 {
+	text-align: center;
+	margin-bottom: 50px;
+}
+.login button, .register button {
+	margin: 20px;
+}
+
+.btn-floating {
+	position: fixed;
+	bottom: 50px;
+	right: 50px;
+}
+
+.row {
+	padding-bottom: 20px;
+	border-bottom: 1px solid #e5e5e5;
+}
+.row:last-of-type {
+	border-bottom: 0px;
+}
+.answer label {
+	padding-left: 25px !important;
+	margin-right: 30px;
+	margin-left: 10px;
+}
+a {
+	color: #26a69a;
+}
+
+.header span:nth-child(2) {
+	margin-left: 15px;
+}
+.header span:nth-child(3) {
+	margin-left: 10px;
+}
+.header span:nth-child(4) {
+	margin-left: 30px;
+}
+.header span:nth-child(5) {
+	margin-left: 10px;
+}
+.header, .answer {
+	white-space: nowrap;
+}
+
+.row:first-of-type {
+	color: #777;
+}
+.hidden {
+	visibility: hidden;
+}
+#toast-container {
+	top: inherit;
+	bottom: 54px;
+	right: 55px;
+}
+.percentage {
+	position: relative;
+}
+.percentage span {
+	background-color: #FFF9C4;
+	display: inline-block;
+	border-right: 1px solid #26a69a;
+}

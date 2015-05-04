@@ -3,7 +3,7 @@
 @section('title', 'Login')
 
 @section('content')
-    <div class="card-panel">
+    <div class="card-panel login">
         @if ($message)
             <div class="card-panel red white-text">        
                 {{ $message }}
@@ -21,5 +21,6 @@
             </div>
             <button class="waves-effect waves-light btn">Login</button>
         </form>
+        <a href="/register">Noch kein Konto?</a>
     </div>
 @stop

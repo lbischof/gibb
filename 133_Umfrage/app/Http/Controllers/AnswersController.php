@@ -11,6 +11,8 @@ class AnswersController extends Controller {
     }*/
 
     public function postAnswers() {
+        if (\Auth::user()->answered)
+            return redirect('/');
     	$answers = \Request::input('q');
         $hashed_user_id = bcrypt(\Auth::user()->id);
         $score = 0;
@@ -34,7 +36,7 @@ class AnswersController extends Controller {
         $user_hash = \Session::get('user_hash'); //Try and get the user_hash. If it's empty we can't show the "Antworten anzeigen" link.
         $current_user_score = \Auth::user()->score;
         $total_score = Question::count() * 100;
-        $users = \DB::select('select email, score, abs(score - ?) as distance from users where score not null order by distance', [$current_user_score]);
+        $users = \DB::select('select id, name, email, score, abs(score - ?) as distance from users where score not null order by distance', [$current_user_score]);
         foreach ($users as $key => $user) {
             $users[$key]->percent = abs((100 * $user->distance / $total_score) - 100);  
         }
