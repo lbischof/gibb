@@ -2,12 +2,11 @@
 
 use App\Models\User;
 
-class UsersController extends Controller {
+class UsersController extends BaseController {
 
     public function getLogin() {
         $message = \Session::get('message');
-		$email = \Session::get('email');
-		return view('login', ['message' => $message, 'email' => $email]);
+		return view('login', ['message' => $message]);
     }
     
     public function postLogin() {
@@ -16,7 +15,7 @@ class UsersController extends Controller {
 	    if (\Auth::attempt(['email' => $email, 'password' => $password])) {
 	        return redirect('/');
 	    } else {
-	    	return redirect('login')->with('message', 'Login failed')->with('email', $email);
+	    	return redirect('login')->with('message', 'Login failed');
 	    }
     }
 
@@ -26,23 +25,27 @@ class UsersController extends Controller {
     }
 
     public function postRegister(\Illuminate\Http\Request $request) {
-        $rules = array(
+        $rules = [
             'email'             => 'required|email|unique:users',
-            'password'          => 'required|min:6',
+            'password'          => 'required|min:8|regex:/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).$/',
             'password_confirm'  => 'required|same:password'
-        );
-        $this->validate($request, $rules);
-        
+        ];
+        $messages = [
+            'regex'             => 'Das Passwort muss Grossbuchstaben, Kleinbuchstaben und Zahlen enthalten.',
+            'min'               => 'Das Passwort muss mindestens :min Zeichen lang sein.',
+            'same'              => 'Die beiden Passwörter stimmen nicht überein.',
+            'unique'            => 'Sie haben schon ein Konto'
+        ];
+        $this->validate($request, $rules, $messages);
         $user = new User(\Request::all());
         $user->password = bcrypt($user->password);
         $user->save();
-        return redirect('login')->with('email', \Request::input('email'));
+        return redirect('login');
     }
 
     public function getLogout() {
-        \Session::forget('user_hash');
     	\Auth::logout();
-		return redirect('login');
+		return view('logout');
     }
 
 }

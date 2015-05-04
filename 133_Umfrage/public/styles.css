@@ -8,7 +8,7 @@ body > a {
 	right: 20px;
 	top: 12px;
 }
-.card-panel {
+.card-panel:not(.red) {
 	margin: 50px auto;
 	padding: 40px;
 }
@@ -34,7 +34,7 @@ h1 {
 	padding-bottom: 20px;
 	border-bottom: 1px solid #e5e5e5;
 }
-.row:last-of-type {
+.row:last-of-type, .error:last-of-type {
 	border-bottom: 0px;
 }
 .answer label {
@@ -80,4 +80,7 @@ a {
 	background-color: #FFF9C4;
 	display: inline-block;
 	border-right: 1px solid #26a69a;
+}
+.error {
+	border-bottom: 1px solid #e5e5e5;
 }
