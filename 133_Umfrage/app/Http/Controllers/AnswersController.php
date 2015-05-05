@@ -3,7 +3,7 @@
 use App\Models\User;
 use App\Models\Question;
 
-class AnswersController extends BaseController {
+class AnswersController extends Controller {
 
     public function postAnswers() {
         if (\Auth::user()->answered) // The user shouldn't be able to submit after answering. This would be a bug or clientside spoofing.
@@ -30,7 +30,7 @@ class AnswersController extends BaseController {
         $total_score = Question::count() * 100;
         $users = \DB::select('select id, name, email, score, abs(score - ?) as distance from users where score not null order by distance', [$current_user_score]); // get the distance/difference of all users score to the current user.
         foreach ($users as $key => $user) {
-            $users[$key]->percent = abs((100 * $user->distance / $total_score) - 100); // Calculate the percentage from the difference in score
+            $users[$key]->percent = round(abs((100 * $user->distance / $total_score) - 100)); // Calculate the percentage from the difference in score
         } 
         return view('results', ['users' => $users ]);
     }

@@ -6,7 +6,13 @@ $(function() {
 			return false; // Don't submit the form
 		}
 	});
-	survey_url=window.location.hostname+window.location.pathname.replace('results', '');
-	if (!window.localStorage.getItem('garlic:'+survey_url+'>form>input.q[0][value]')) //Check if the answers are in localstorage
-		$('.showAnswers').css("visibility", "hidden"); 
+    if (window.location.pathname.indexOf("results") > -1) {
+	    survey_url=window.location.hostname+window.location.pathname.replace('results', '');
+	    if (!window.localStorage.getItem('garlic:'+survey_url+'>form>input.q[0][value]')) //Check if the answers are in localstorage
+		    $('.showAnswers').css("visibility", "hidden");
+    }
+    $('#email').on('blur', function(){
+        if ($(this).val())
+            $(this).next().addClass('active');
+    });
 });

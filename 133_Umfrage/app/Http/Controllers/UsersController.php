@@ -2,7 +2,7 @@
 
 use App\Models\User;
 
-class UsersController extends BaseController {
+class UsersController extends Controller {
 
     public function getLogin() {
         $message = \Session::get('message');

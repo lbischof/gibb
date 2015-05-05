@@ -2,16 +2,21 @@
 
 class ExampleTest extends TestCase {
 
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
-    public function testBasicExample()
-    {
+    public function testGetHomepage() {
         $response = $this->call('GET', '/');
 
-        $this->assertResponseOk();
+        $this->assertResponseStatus(302);
+        //$this->assertRedirectedToAction('QuestionsController@getQuestions');
+
+        $this->assertRedirectedTo('login');
     }
+    public function testGetResults() {
+        $response = $this->call('GET', '/results');
+
+        $this->assertResponseStatus(302);
+        //$this->assertRedirectedTo('login');
+    }   
+    //public function testControllerHomepage
+     
 
 }

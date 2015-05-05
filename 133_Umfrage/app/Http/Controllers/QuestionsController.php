@@ -2,7 +2,7 @@
 
 use App\Models\Question;
 
-class QuestionsController extends BaseController {
+class QuestionsController extends Controller {
 
     public function getQuestions() {
         $user = \Auth::user();
