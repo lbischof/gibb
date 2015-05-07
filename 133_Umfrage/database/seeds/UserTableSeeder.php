@@ -14,7 +14,7 @@ class UserTableSeeder extends Seeder {
              'name' => 'Lorenz Bischof',
              'email' => 'lorenzbischof@gmail.com',
              'password' => '$2y$10$YBVd1.1Nveb6EQKxjr6jQe6R29jWbJCk7.m4L.O6a9ybCmvRQBj4O', //123secret 
-             'score' => 150
+             'score' => 1375
          ]);
         User::create([
             'name' => 'Art Venere',
@@ -26,7 +26,7 @@ class UserTableSeeder extends Seeder {
             'name' => 'Mattie Poquette',
             'email' => 'mattie@aol.com',
             'password' => '$2y$10$YBVd1.1Nveb6EQKxjr6jQe6R29jWbJCk7.m4L.O6a9ybCmvRQBj4O', //123secret
-            'score' => 50
+            'score' => 900
         ]);
         User::create([
             'name' => 'Willow Kusko',

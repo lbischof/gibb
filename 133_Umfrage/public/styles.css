@@ -1,3 +1,4 @@
+
 body {
 	background: #FFF9C4;
 	color: #444;
@@ -10,17 +11,18 @@ body > a {
 }
 .card-panel:not(.red) {
 	margin: 50px auto;
-	padding: 40px;
+	padding: 0;
 }
 .login, .register {
 	max-width: 500px;
 	text-align: center;
+	padding: 40px !important;
 }
 h1 {
 	text-align: center;
 	margin-bottom: 50px;
 }
-.login button, .register button {
+.btn {
 	margin: 20px;
 }
 
@@ -30,50 +32,78 @@ h1 {
 	right: 50px;
 }
 
-.row {
-	padding-bottom: 20px;
-	border-bottom: 1px solid #e5e5e5;
+
+.row:first-of-type {
+position: -webkit-sticky;
+position: -moz-sticky;
+position: -ms-sticky;
+position: -o-sticky;
+position: sticky;
+top: 0;
 }
-.row:last-of-type, .error:last-of-type {
+
+.row:first-of-type div {
+	text-align: center;
+	vertical-align: middle;
+	padding-bottom: 10px;
+	line-height: 1;
+}
+
+
+.table {
+	display: table;
+	width:100%;
+}
+.container .row {
+	display: table-row;
+		width: 100%;
+
+}
+
+.row > div {
+	display: table-cell;
+	padding: 30px 0;
+	border-bottom: 1px solid #e5e5e5;
+	vertical-align: middle;
+}
+.row > div:first-of-type {
+	width: 100%;
+	padding-left: 30px;
+	text-align: left;
+}
+.row > div:last-of-type {
+	padding-right: 30px;
+}
+.error:last-of-type {
 	border-bottom: 0px;
 }
-.answer label {
-	padding-left: 25px !important;
-	margin-right: 30px;
-	margin-left: 10px;
+
+
+#survey label {
+	margin: 0 15px 0 25px;
 }
+
 a {
 	color: #26a69a;
 }
 
-.header span:nth-child(2) {
-	margin-left: 15px;
-}
-.header span:nth-child(3) {
-	margin-left: 10px;
-}
-.header span:nth-child(4) {
-	margin-left: 30px;
-}
-.header span:nth-child(5) {
-	margin-left: 10px;
-}
-.header, .answer {
-	white-space: nowrap;
-}
+
 
 .row:first-of-type {
 	color: #777;
 }
-.hidden {
-	visibility: hidden;
+
+.resultate .row div {
+	width: 50%;
 }
+
 #toast-container {
 	top: inherit;
 	bottom: 54px;
 	right: 55px;
 }
 .percentage {
+	width: 50%;
 	position: relative;
 }
 .percentage span {
@@ -85,6 +115,16 @@ a {
 .error {
 	border-bottom: 1px solid #e5e5e5;
 }
+input:disabled + label {
+	cursor: default !important;
+}
+.avg50 div:nth-last-child(1) label::before,
+.avg100 div:nth-last-child(2) label::before,
+.avg75 div:nth-last-child(3) label::before,
+.avg25 div:nth-last-child(4) label::before,
+.avg0 div:nth-last-child(5) label::before {
+	box-shadow: 0 0 30px rgba(81, 203, 238, 1);
+}
 #email:focus + label {
     font-size: 0.8rem;
   -webkit-transform: translateY(-140%);
@@ -93,3 +133,5 @@ a {
   -o-transform: translateY(-140%);
   transform: translateY(-140%);
 }
+
+

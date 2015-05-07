@@ -15,5 +15,9 @@ class TestCase extends Laravel\Lumen\Testing\TestCase {
         parent::setUp();
         $this->createApplication();
     }
+    public function tearDown(){
+        parent::tearDown();
+        Mockery::close();
+    }
 
 }

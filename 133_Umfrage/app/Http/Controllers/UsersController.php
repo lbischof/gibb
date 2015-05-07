@@ -27,7 +27,7 @@ class UsersController extends Controller {
     public function postRegister(\Illuminate\Http\Request $request) {
         $rules = [
             'email'             => 'required|email|unique:users',
-            'password'          => 'required|min:8|regex:/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).$/',
+            'password'          => 'required|min:8|regex:/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$/',
             'password_confirm'  => 'required|same:password'
         ];
         $messages = [

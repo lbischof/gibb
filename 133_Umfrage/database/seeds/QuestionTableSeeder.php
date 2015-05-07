@@ -30,8 +30,9 @@ class QuestionTableSeeder extends Seeder {
             [ 'text' => 'Würden Sie gerne Kinder haben?'],
             [ 'text' => 'Einen Nachmittag für die Kinder freinehmen?'],
             [ 'text' => ''],
-            [ 'text' => ' '],
-            [ 'text' => ' '],
+            // Sport
+            [ 'text' => 'Machen Sie selber Sport?'],
+            [ 'text' => 'Schauen Sie Sport im Fernsehen?'],
             [ 'text' => ' '],
             [ 'text' => ' '],
             [ 'text' => ' '],
