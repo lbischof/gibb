@@ -3,10 +3,9 @@
 @section('title', 'Welcome')
 
 @section('content')
-    <div class="card-panel">
-    	<div class="table">
+    <div class="card-panel home">
         <h1>{{ $user->answered ? 'Vielen Dank' : 'Umfrage' }}</h1>
-        
+       	<div class="table">
         <form data-persist="garlic" data-destroy="false" id="survey" action="/save" method="post">
             <div class="row">
                 <div>

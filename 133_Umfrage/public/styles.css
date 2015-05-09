@@ -9,19 +9,24 @@ body > a {
 	right: 20px;
 	top: 12px;
 }
+
 .card-panel:not(.red) {
 	margin: 50px auto;
 	padding: 0;
 }
+
 .login, .register {
 	max-width: 500px;
 	text-align: center;
 	padding: 40px !important;
 }
+
 h1 {
 	text-align: center;
-	margin-bottom: 50px;
+	padding: 50px 0;
+	margin: 0;
 }
+
 .btn {
 	margin: 20px;
 }
@@ -32,16 +37,6 @@ h1 {
 	right: 50px;
 }
 
-
-.row:first-of-type {
-position: -webkit-sticky;
-position: -moz-sticky;
-position: -ms-sticky;
-position: -o-sticky;
-position: sticky;
-top: 0;
-}
-
 .row:first-of-type div {
 	text-align: center;
 	vertical-align: middle;
@@ -49,6 +44,9 @@ top: 0;
 	line-height: 1;
 }
 
+.resultate .row:first-of-type div {
+	padding: 15px 30px;
+}
 
 .table {
 	display: table;
@@ -56,15 +54,18 @@ top: 0;
 }
 .container .row {
 	display: table-row;
-		width: 100%;
-
+	width: 100%;
+	margin: 0;
 }
 
 .row > div {
 	display: table-cell;
-	padding: 30px 0;
 	border-bottom: 1px solid #e5e5e5;
 	vertical-align: middle;
+}
+
+.resultate .row > div {
+	padding: 30px;
 }
 .row > div:first-of-type {
 	width: 100%;
@@ -78,9 +79,13 @@ top: 0;
 	border-bottom: 0px;
 }
 
-
 #survey label {
-	margin: 0 15px 0 25px;
+	padding: 40px 35px;
+}
+
+[type="radio"]+label:before, [type="radio"]+label:after {
+	left: 25px;
+	top: 27px;
 }
 
 a {
@@ -88,8 +93,7 @@ a {
 }
 
 
-
-.row:first-of-type {
+.row:first-of-type, .row div::after {
 	color: #777;
 }
 
@@ -118,12 +122,8 @@ a {
 input:disabled + label {
 	cursor: default !important;
 }
-.avg50 div:nth-last-child(1) label::before,
-.avg100 div:nth-last-child(2) label::before,
-.avg75 div:nth-last-child(3) label::before,
-.avg25 div:nth-last-child(4) label::before,
-.avg0 div:nth-last-child(5) label::before {
-	box-shadow: 0 0 30px rgba(81, 203, 238, 1);
+.tooltipped::before {
+	box-shadow: 0 0 10px rgba(81, 203, 238, 1);
 }
 #email:focus + label {
     font-size: 0.8rem;
@@ -132,6 +132,87 @@ input:disabled + label {
   -ms-transform: translateY(-140%);
   -o-transform: translateY(-140%);
   transform: translateY(-140%);
+}
+
+.material-tooltip {
+	margin-top: -30px !important;
+}
+
+@media (max-width: 950px) {
+
+	.home .row:first-of-type div {
+		display: none;
+	}
+	.home .row:first-of-type div:first-of-type {
+		display: block;
+	}
+	.row > div {
+		display: inline-block;
+		border: none;
+		padding-right: 0 !important;
+	}
+	.home .row > div:first-of-type {
+		padding-top: 20px;
+	}
+	.row {
+		display: block !important;
+		border-bottom: 1px solid #e5e5e5;
+	}
+	.home label {
+		padding: 40px 25px !important;
+	}
+	[type="radio"]+label:before, [type="radio"]+label:after {
+		left: 0;
+	}
+	.container {
+		width: 100%;
+	}
+	.home .row div::after {
+		position: relative;
+		bottom: 35px;
+		right: 25px;
+	}
+	.home .row div:nth-last-child(1)::after {
+		content: 'Keine Meinung';
+	}
+	.home .row div:nth-last-child(2)::after {
+		content: 'ja';
+	}
+	.home .row div:nth-last-child(3)::after {
+		content: 'eher ja';
+	}
+	.home .row div:nth-last-child(4)::after {
+		content: 'eher nein';
+	}
+	.home .row div:nth-last-child(5)::after {
+		content: 'nein';
+	}
+	.home .row div:nth-last-child(5) {
+		padding-left: 30px;
+	}
+	.resultate .row > div {
+		display: block;
+		width: 100%;
+		padding: 10px;
+	}
+	
+}
+@media (max-width: 680px) {
+	.home .row > div {
+		display: block;
+		padding-left: 30px;
+	}
+	[type="radio"]+label:before, [type="radio"]+label:after {
+		top: 0;
+	}
+	.home label {
+		padding: 0 !important;
+	}
+	.home .row div::after {
+		position: relative;
+		bottom: 7px;
+		right: -30px;
+	}
 }
 
 

@@ -15,4 +15,11 @@ $(function() {
     $("input:disabled").closest("div").click(function () {
     	Materialize.toast('Sie haben die Umfrage schon beantwortet.', 6000, 'rounded');
     });
+
+    values = [50, 100, 75, 25, 0];
+    $.each(values,function(index, value) {
+    	index++
+    	$('.avg'+value).find('div:nth-last-child('+index+') label').addClass('tooltipped').attr('data-tooltip', 'meist gewählt');
+    });
+    $('.tooltipped').tooltip({delay: 500})
 });

@@ -23,22 +23,18 @@ class QuestionTableSeeder extends Seeder {
             // Digital
             [ 'text' => 'Schauen Sie darauf, dass Daten nicht nach Amerika gelangen?'],
             [ 'text' => 'Kennen Sie Linux?'],
-            [ 'text' => 'Benutzen Sie manchmal Internet Explorer?'],
+            [ 'text' => 'Benutzen Sie Internet Explorer?'],
             [ 'text' => 'Könnten Sie eine eigene Website erstellen?'],
             [ 'text' => 'Benutzen Sie oft ein Navigationsgerät?'],
             // Kinder
-            [ 'text' => 'Würden Sie gerne Kinder haben?'],
+            [ 'text' => 'Haben Sie Kinder gerne?'],
             [ 'text' => 'Einen Nachmittag für die Kinder freinehmen?'],
-            [ 'text' => ''],
+            [ 'text' => 'Schauen Sie Kinderfernsehen?'],
             // Sport
-            [ 'text' => 'Machen Sie selber Sport?'],
+            [ 'text' => 'Spielen Sie in einer Sportmannschaft?'],
             [ 'text' => 'Schauen Sie Sport im Fernsehen?'],
-            [ 'text' => ' '],
-            [ 'text' => ' '],
-            [ 'text' => ' '],
-            [ 'text' => ' '],
-            [ 'text' => ' '],
-            [ 'text' => ' '],
+            [ 'text' => 'Ist Sport ein wichtiger Bestandteil Ihres Lebens?'],
+            [ 'text' => 'Fahren Sie oft mit dem Fahrrad?']
         ];
         Question::insert($questions);
     }

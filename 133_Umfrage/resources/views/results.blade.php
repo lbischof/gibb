@@ -4,8 +4,8 @@
 
 @section('content')
     <div class="card-panel resultate">
-        <div class="table">
         <h1>Auswertung</h1>
+        <div class="table">
 
         <div class="row">
                 <div>
