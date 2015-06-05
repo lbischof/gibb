@@ -48,10 +48,14 @@ public class Papier extends JPanel implements MouseListener, MouseMotionListener
 	}
 	
 	public void mouseReleased(MouseEvent e) {
-		this.f = drawFigur(e);
+		try {
+			this.f = createFigur(e);
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
 	}
 	
-	private Figur drawFigur(MouseEvent e) {
+	private Figur createFigur(MouseEvent e) throws Exception {
 				int width, height;
 				if (e.getX() > this.x) {
 					width = e.getX() - this.x;
@@ -75,6 +79,8 @@ public class Papier extends JPanel implements MouseListener, MouseMotionListener
 				case 'o':
 					f = new Oval(x, y, width, height);
 					break;
+				default:
+					throw new Exception("Unknown Mode");
 				}
 				zeichnung.addFigur(f);
 				repaint();

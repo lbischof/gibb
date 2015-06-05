@@ -17,13 +17,8 @@ public class Oval extends Figur {
 
 	@Override
 	public double area() {
-		return 0;
+		return (this.width / 2) * (this.height / 2) * Math.PI;
 	}
 
-	public void resize(int x, int y, int width, int height) {
-		super.resize(x, y);
-		this.width = width;
-		this.height = height;
-	}
 	
 }
