@@ -23,14 +23,28 @@ public class Game extends JFrame {
 	 */
 	private BoardPanel board;
 	
+	/*
+	 * The GameState enum.
+	 */
 	private GameState gameState;
 	
+	/*
+	 * The Snake instance.
+	 */
 	private Snake snake;
 	
+	/*
+	 * The Food instance.
+	 */
 	private Food food;
 	
+	/*
+	 * The current Score. 
+	 */
+	private int score;
+	
 	/**
-	 * Creates a new SnakeGame instance. Creates a new window,
+	 * Creates a new Game instance. Creates a new window,
 	 * and sets up the controller input.
 	 */
 	private Game() {
@@ -43,8 +57,7 @@ public class Game extends JFrame {
 		 * Initialize the board.
 		 */
 		this.board = new BoardPanel(this);
-		this.food = new Food(this);
-
+		
 		add(board, BorderLayout.CENTER);
 		
 		/*
@@ -94,6 +107,7 @@ public class Game extends JFrame {
 			}
 			
 		});
+		
 		/*
 		 * Resize the window to the appropriate size, center it on the
 		 * screen and display it.
@@ -112,6 +126,7 @@ public class Game extends JFrame {
 		 */
 		this.snake = new Snake(this);
 		this.gameState = GameState.NewGame;
+		this.food = new Food(this);
 
 		/*
 		 * This is the game loop. It will update and render the game and will
@@ -120,6 +135,7 @@ public class Game extends JFrame {
 		while(true) {
 			if (gameState == GameState.Playing) {
 				snake.move();
+				
 		
 				//Repaint the board and side panel with the new content.
 				board.repaint();
@@ -127,48 +143,43 @@ public class Game extends JFrame {
 				try {
 					Thread.sleep(FRAME_TIME);
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
 		}
 	}
 	
-
 	public void gameOver() {
 		this.gameState = GameState.GameOver;
 	}
+	
 	/**
 	 * Resets the game's variables to their default states and starts a new game.
 	 */
 	private void resetGame() {
 		
-		/*
-		 * Reset both the new game and game over flags.
-		 */
 		this.gameState = GameState.Playing;
-		
-			
 		this.snake.reset();
 		
+		this.score = 0;
 		/*
 		 * Spawn a new fruit.
 		 */
 		this.food.spawn();
 	}
 	
-	/**
-	 * Gets the flag that indicates whether or not we're playing a new game.
-	 * @return The new game flag.
-	 */
+	public void increaseScore() {
+		this.score++;
+	}
+	
+	public int getScore() {
+		return this.score;
+	}
+	
 	public boolean isNewGame() {
 		return gameState == GameState.NewGame;
 	}
 	
-	/**
-	 * Gets the flag that indicates whether or not the game is over.
-	 * @return The game over flag.
-	 */
 	public boolean isGameOver() {
 		return this.gameState == GameState.GameOver;
 	}
@@ -176,13 +187,14 @@ public class Game extends JFrame {
 	public BoardPanel getBoard() {
 		return board;
 	}
+	
 	public Snake getSnake() {
 		return snake;
 	}
+	
 	public static void main(String[] args) {
 		Game game = new Game();
 		game.start();
 	}
-	
 	
 }

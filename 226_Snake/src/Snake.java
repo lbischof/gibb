@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Point;
 import java.util.LinkedList;
 
@@ -15,41 +16,34 @@ public class Snake extends GameElement {
 	 */
 	private static final int MIN_SNAKE_LENGTH = 5;
 	
-	private int fruitsEaten;
-
-
 	public Snake(Game game) {
 		super(game);	
 		this.snake = new LinkedList<Point>();
 	}
-		
+	
+	/*
+	 * Checks if the head is out of bounds.
+	 */
 	private boolean isOutOfBounds(Point head) {
-		
-		/*
-		 * Check if the head is a valid board position
-		 */
-		if (!board.inBounds(head.x, head.y)) {
+		if(head.x < 0 || head.x >= BoardPanel.COL_COUNT || head.y < 0 || head.y >= BoardPanel.ROW_COUNT) {
 			return true;
 		}
-		
-		/*
-		 * Also check horizontal position because the board would 
-		 * just wrap the snake to the other side
-		 */
-		if(head.x < 0 || head.x >= BoardPanel.ROW_COUNT) {
-			return true;
-		}
-		
 		return false;
 	}
 	
+	/*
+	 * Removes the last body tile of the snake.
+	 * This function gets called every move except if Food was eaten.
+	 */
 	private void removeTail() {
 		Point tail = snake.removeLast();
 		board.setTile(tail, null);
 	}
 	
+	/*
+	 * Moves the snake one tile in a specific direction.
+	 */
 	public void move() {
-
 		Point head = new Point(snake.peekFirst());
 
 		/*
@@ -73,7 +67,10 @@ public class Snake extends GameElement {
 			head.x++;
 			break;
 		}
-			
+		
+		/*
+		 * Check if the new position would be out of bounds.
+		 */
 		if (isOutOfBounds(head)) {
 			game.gameOver();
 			return;
@@ -91,11 +88,20 @@ public class Snake extends GameElement {
 
 	}
 	
+	/*
+	 * Get the size of the snake.
+	 */
 	public int getSize() {
 		return snake.size();
 	}
 	
-	public void setDirection(Direction direction){	
+	/*
+	 * Sets the direction of the snake.
+	 */
+	public void setDirection(Direction direction){
+		/*
+		 * Check if the new direction is allowed
+		 */
 		if (this.direction.opposite() != direction)
 			this.direction = direction;
 	}
@@ -117,7 +123,7 @@ public class Snake extends GameElement {
 	@Override
 	public void draw(int x, int y, Graphics g) {
 		int tileSize = board.getTileSize();
-		g.setColor(Color.GREEN);
+		g.setColor(Color.BLACK);
 		g.fillRect(x , y, tileSize, tileSize);	
 	}
 

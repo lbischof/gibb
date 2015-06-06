@@ -1,6 +1,5 @@
 import java.awt.Graphics;
-import java.awt.Point;
-
+import java.awt.Graphics2D;
 
 abstract class GameElement {
 	BoardPanel board;
