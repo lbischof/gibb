@@ -62,6 +62,10 @@ public class BoardPanel extends JPanel {
 		}
 	}
 	
+	public boolean inBounds(int x, int y) {
+		return tiles.length > y * ROW_COUNT + x && y * ROW_COUNT + x >= 0;
+	}	
+		
 	/**
 	 * Sets the tile at the desired coordinate.
 	 * @param point The coordinate of the tile.
@@ -103,7 +107,7 @@ public class BoardPanel extends JPanel {
 			for(int y = 0; y < ROW_COUNT; y++) {
 				GameElement element = getTile(x, y);
 				if(element != null) {
-					drawTile(x * TILE_SIZE, y * TILE_SIZE, element, g);
+					element.draw(x * TILE_SIZE, y * TILE_SIZE, g);
 				}
 			}
 		}
@@ -129,12 +133,12 @@ public class BoardPanel extends JPanel {
 		 */
 		if(game.isGameOver() || game.isNewGame()) {
 			g.setColor(Color.WHITE);
-			
+				
 			/*
 			 * Get the center coordinates of the board.
 			 */
-			int centerX = getWidth() / 2;
-			int centerY = getHeight() / 2;
+			int centerX = getWidth() / 2;	
+			int centerY = getHeight() / 2;					
 			
 			/*
 			 * Allocate the messages for and set their values based on the game
@@ -158,16 +162,7 @@ public class BoardPanel extends JPanel {
 			g.drawString(smallMessage, centerX - g.getFontMetrics().stringWidth(smallMessage) / 2, centerY + 50);
 		}
 	}
-	/**
-	 * Draws a tile onto the board.
-	 * @param x The x coordinate of the tile (in pixels).
-	 * @param y The y coordinate of the tile (in pixels).
-	 * @param type The type of tile to draw.
-	 * @param g The graphics object to draw to.
-	 */
-	private void drawTile(int x, int y, GameElement element, Graphics g) {
-		element.draw(x, y, g);
-	}
+	
 	
 	public int getTileSize() {
 		return TILE_SIZE;

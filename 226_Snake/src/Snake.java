@@ -7,14 +7,13 @@ import java.util.LinkedList;
 public class Snake extends GameElement {
 	private Direction direction;
 	private LinkedList<Point> snake;
-	
-	
+		
 	/**
 	 * The minimum length of the snake. This allows the snake to grow
 	 * right when the game starts, so that we're not just a head moving
 	 * around on the board.
 	 */
-	private static final int MIN_SNAKE_LENGTH = 10;
+	private static final int MIN_SNAKE_LENGTH = 5;
 	
 	private int fruitsEaten;
 
@@ -24,24 +23,31 @@ public class Snake extends GameElement {
 		this.snake = new LinkedList<Point>();
 	}
 		
-	private void detectCollision(Point head) {
-		GameElement element = board.getTile(head.x, head.y);
-
-		if(head.x < 0 || head.x >= BoardPanel.COL_COUNT || head.y < 0 || head.y >= BoardPanel.ROW_COUNT) {
-			//isGameOver = true;
+	private boolean isOutOfBounds(Point head) {
+		
+		/*
+		 * Check if the head is a valid board position
+		 */
+		if (!board.inBounds(head.x, head.y)) {
+			return true;
 		}
 		
-		if (element != null) {
-			element.collide();
-		} else {
-			removeTail();
+		/*
+		 * Also check horizontal position because the board would 
+		 * just wrap the snake to the other side
+		 */
+		if(head.x < 0 || head.x >= BoardPanel.ROW_COUNT) {
+			return true;
 		}
+		
+		return false;
 	}
 	
 	private void removeTail() {
 		Point tail = snake.removeLast();
 		board.setTile(tail, null);
 	}
+	
 	public void move() {
 
 		Point head = new Point(snake.peekFirst());
@@ -67,28 +73,42 @@ public class Snake extends GameElement {
 			head.x++;
 			break;
 		}
+			
+		if (isOutOfBounds(head)) {
+			game.gameOver();
+			return;
+		}
 		
-		detectCollision(head);
-
+		GameElement element = board.getTile(head.x, head.y);
+		if (element != null) {
+			element.collide();
+		} else if (snake.size() >= MIN_SNAKE_LENGTH) {			
+			removeTail();
+		}
+		
 		snake.push(head);
 		board.setTile(head, this);
+
 	}
+	
 	public int getSize() {
 		return snake.size();
 	}
-	public void setDirection(Direction direction){
-		this.direction = direction;
+	
+	public void setDirection(Direction direction){	
+		if (this.direction.opposite() != direction)
+			this.direction = direction;
 	}
-
+	
 	public void reset() {
 		/*
 		 * Create the head at the center of the board.
 		 */
 		Point head = new Point(BoardPanel.COL_COUNT / 2, BoardPanel.ROW_COUNT / 2);
 		snake.clear();
-		snake.add(head);
+		snake.push(head);
 		
-		board.clearBoard();
+		board.clearBoard();	
 		board.setTile(head, this);
 		
 		direction = Direction.North;
@@ -103,7 +123,7 @@ public class Snake extends GameElement {
 
 	@Override
 	public void collide() {
-		
+		game.gameOver();
 	}
 }
 		
