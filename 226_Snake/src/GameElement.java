@@ -1,5 +1,4 @@
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 
 abstract class GameElement {
 	BoardPanel board;
@@ -8,6 +7,6 @@ abstract class GameElement {
 		this.board = game.getBoard();
 		this.game = game;
 	}
-	abstract void draw(int x, int y, Graphics g);
-	abstract void collide();
+	public abstract void draw(int x, int y, Graphics g);
+	public abstract void collide();
 }

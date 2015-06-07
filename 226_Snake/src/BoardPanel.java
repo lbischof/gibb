@@ -27,10 +27,6 @@ public class BoardPanel extends JPanel {
 	public static final int TILE_SIZE = 20;
 	
 	
-	/**
-	 * The font to draw the text with.
-	 */
-	private static final Font FONT = new Font("Tahoma", Font.BOLD, 25);
 		
 	/**
 	 * The Game instance.
@@ -159,18 +155,10 @@ public class BoardPanel extends JPanel {
 			/*
 			 * Set the message font and draw the messages in the center of the board.
 			 */
-			g2.setFont(FONT);
+			g2.setFont(new Font("Tahoma", Font.BOLD, 25));
 			g2.drawString(largeMessage, centerX - g2.getFontMetrics().stringWidth(largeMessage) / 2, centerY - 50);
 			g2.drawString(smallMessage, centerX - g2.getFontMetrics().stringWidth(smallMessage) / 2, centerY + 50);
 		}
 	}	
 	
-	/*
-	 *  Gets the tile size
-	 *  
-	 *  @return The size of a single tile
-	 */
-	public int getTileSize() {
-		return TILE_SIZE;
-	}
 }

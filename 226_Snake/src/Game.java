@@ -1,10 +1,7 @@
 import java.awt.BorderLayout;
-import java.awt.Point;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.util.LinkedList;
-import java.util.Random;
-import java.util.concurrent.TimeUnit;
+
 
 import javax.swing.JFrame;
 
@@ -12,11 +9,6 @@ import javax.swing.JFrame;
 @SuppressWarnings("serial")
 public class Game extends JFrame {
 	
-
-	/**
-	 * The number of milliseconds that should pass between each frame.
-	 */
-	private long FRAME_TIME = 100L;
 	
 	/**
 	 * The BoardPanel instance.
@@ -52,7 +44,14 @@ public class Game extends JFrame {
 		setLayout(new BorderLayout());
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setResizable(false);
-				
+		
+		// http://stackoverflow.com/questions/16367910/swing-jframe-is-sometimes-bigger-than-preffered-size
+		try {
+			Thread.sleep(100);
+		} catch (InterruptedException e1) {
+			e1.printStackTrace();
+		}
+
 		/*
 		 * Initialize the board.
 		 */
@@ -115,6 +114,7 @@ public class Game extends JFrame {
 		pack();
 		setLocationRelativeTo(null);
 		setVisible(true);
+		
 	}
 	
 	/**
@@ -140,11 +140,12 @@ public class Game extends JFrame {
 				//Repaint the board and side panel with the new content.
 				board.repaint();
 			
-				try {
-					Thread.sleep(FRAME_TIME);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
+				
+			}
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
 			}
 		}
 	}

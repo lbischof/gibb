@@ -21,19 +21,18 @@ public class Food extends GameElement {
 	}
 		
 	@Override
-	void draw(int x, int y, Graphics g) {
+	public void draw(int x, int y, Graphics g) {
 		/*
 		 * Cast the Graphics object to Graphics2D for antialiasing.
 		 */
 		Graphics2D g2 = (Graphics2D) g;
-		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-			    RenderingHints.VALUE_ANTIALIAS_ON);
+		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		g2.setColor(Color.RED);
-		g2.fillOval(x + 2, y + 2, board.getTileSize() - 4, board.getTileSize() - 4);
+		g2.fillOval(x + 2, y + 2, board.TILE_SIZE - 4, board.TILE_SIZE - 4);
 	}
 
 	@Override
-	void collide() {
+	public void collide() {
 		spawn();
 		game.increaseScore();
 	}

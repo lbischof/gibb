@@ -1,6 +1,5 @@
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Point;
 import java.util.LinkedList;
 
@@ -122,9 +121,8 @@ public class Snake extends GameElement {
 	
 	@Override
 	public void draw(int x, int y, Graphics g) {
-		int tileSize = board.getTileSize();
 		g.setColor(Color.BLACK);
-		g.fillRect(x , y, tileSize, tileSize);	
+		g.fillRect(x , y, board.TILE_SIZE, board.TILE_SIZE);	
 	}
 
 	@Override
