@@ -4,7 +4,9 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.util.Random;
 
-
+/*
+ * This class represents the food that will be eaten by the snake.
+ */
 public class Food extends GameElement {
 	/**
 	 * The random number generator (used for spawning Food).

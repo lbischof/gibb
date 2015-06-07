@@ -5,7 +5,9 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.JFrame;
 
-
+/*
+ * The main class. Everything is controlled from here. Keyevents are also registered here.
+ */
 @SuppressWarnings("serial")
 public class Game extends JFrame {
 	
@@ -150,6 +152,9 @@ public class Game extends JFrame {
 		}
 	}
 	
+	/*
+	 * Ends the game.
+	 */
 	public void gameOver() {
 		this.gameState = GameState.GameOver;
 	}
@@ -169,6 +174,9 @@ public class Game extends JFrame {
 		this.food.spawn();
 	}
 	
+	/*
+	 * Increases the score.
+	 */
 	public void increaseScore() {
 		this.score++;
 	}

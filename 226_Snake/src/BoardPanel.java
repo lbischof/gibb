@@ -8,7 +8,9 @@ import java.awt.RenderingHints;
 
 import javax.swing.JPanel;
 
-
+/*
+ * The board grid. All the GameElements are stored here.
+ */
 @SuppressWarnings("serial")
 public class BoardPanel extends JPanel {
 	/**

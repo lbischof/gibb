@@ -1,5 +1,8 @@
 import java.awt.Graphics;
 
+/*
+ * Some sort of element that can be drawn and can collide with the snake.
+ */
 abstract class GameElement {
 	BoardPanel board;
 	Game game;

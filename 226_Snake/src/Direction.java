@@ -1,5 +1,5 @@
 /**
- * The {@code Direction} enum is used to determine which way the Snake is moving.
+ * The enum is used to determine which way the Snake is moving.
  * The "opposite" code is written by Sindri Joelsson:
  * https://stackoverflow.com/questions/1575146/how-can-i-associate-an-enum-with-its-opposite-value-as-in-cardinal-directions
  *

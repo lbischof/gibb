@@ -3,7 +3,9 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.util.LinkedList;
 
-
+/*
+ * This class draws, moves the snake and checks collisions. 
+ */
 public class Snake extends GameElement {
 	private Direction direction;
 	private LinkedList<Point> snake;
