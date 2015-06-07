@@ -1,0 +1,85 @@
+@startuml
+
+skinparam shadowing false
+
+class Game {
+  -board : BoardPanel
+  -gameState : GameState
+  -snake : Snake
+  -food : Food
+  -score : int
+  -Game()
+  -start()
+  -resetGame()
+  +gameOver()
+  +increaseScore()
+}
+
+class BoardPanel {
+  -game : Game
+  -tiles : GameElement[]
+  {static} +COL_COUNT : int = 25
+  {static} +ROW_COUNT : int = 25
+  {static} +TILE_SIZE : int = 20
+  +BoardPanel(Game)
+  +clearBoard()
+  +paintComponent(Graphics)
+}
+
+class Food {
+  -random : Random
+  +Food(Game)
+  +draw(int, int, Graphics)
+  +collide()
+  +spawn()
+}
+
+abstract class GameElement {
+  board : BoardPanel
+  game : Game
+  +GameElement(Game)
+  {abstract} +draw(int, int, Graphics)
+  {abstract} +collide()
+}
+
+class Snake {
+  -direction : Direction
+  -snake : LinkedList<Point>
+  {static} -MIN_SNAKE_LENGTH : int = 5
+  +Snake(Game)
+  -isOutOfBounds(Point) : boolean
+  -removeTail()
+  +move()
+  +reset()
+  +draw(int, int, Graphics)
+  +collide()
+}
+
+enum Direction {
+  North
+  South
+  East
+  West
+  -opposite : int
+  Direction(int)
+  opposite()
+}
+
+enum GameState {
+  GameOver
+  Playing
+  NewGame
+}
+
+Game "1" <-up-> "0..1" Food
+Game "1" <-up-> "0..1" Snake
+Game "1" <-up-> "0..1" BoardPanel
+Snake --> "0..1" Direction
+Game -left-> "0..1" GameState
+GameElement <|-- Snake
+GameElement <|-- Food
+
+Game --|> JFrame
+BoardPanel -up-|> JPanel
+
+@enduml

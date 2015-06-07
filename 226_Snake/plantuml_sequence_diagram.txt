@@ -1,0 +1,77 @@
+@startuml
+
+hide footbox
+skinparam shadowing false
+
+-> Game: start()
+activate Game
+
+create Snake
+Game -> Snake: new()
+
+create Food
+Game -> Food: new()
+
+loop while true
+  opt GameState.Playing
+    Game -> Snake: move()
+    activate Snake
+
+    alt isOutOfBounds(head)
+      Snake -> Game: gameOver()
+      activate Game
+      Game --> Snake
+      deactivate Game
+    else else
+      Snake -> Board: getTile(head.x, head.y)
+      note right : head ist hier die\nzukünftige Position
+      activate Board
+      Board --> Snake : element
+      deactivate Board
+      alt element != null
+        Snake -> GameElement: collide()
+        activate GameElement
+        alt Snake instance
+          GameElement -> Snake : collide()
+          activate Snake
+          Snake -> Game : gameOver()
+          activate Game
+          Game --> Snake
+          deactivate Game
+          Snake --> GameElement
+          deactivate Snake
+        else Food instance
+          GameElement -> Food : collide()
+          activate Food
+          Food -> Game : increaseScore()
+          activate Game
+          Game --> Food
+          deactivate Game
+          Food -> Food: spawn()
+          activate Food
+          deactivate Food
+          Food --> GameElement
+          deactivate Food
+        end
+        GameElement --> Snake
+        deactivate GameElement
+        
+      else else
+        Snake -> Snake : removeTail()
+        activate Snake
+        
+        deactivate Snake
+      end
+      
+
+    end
+    Snake --> Game
+    deactivate Snake
+    Game -> Board: repaint()
+    activate Board
+    Board --> Game
+    deactivate Board
+  end
+end
+<-- Game
+@enduml
