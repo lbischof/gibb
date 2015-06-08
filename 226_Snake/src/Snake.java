@@ -24,6 +24,8 @@ public class Snake extends GameElement {
 	
 	/*
 	 * Checks if the head is out of bounds.
+	 * @param head The position that should be checked
+	 * @return True if the position is out of bounds.
 	 */
 	private boolean isOutOfBounds(Point head) {
 		if(head.x < 0 || head.x >= BoardPanel.COL_COUNT || head.y < 0 || head.y >= BoardPanel.ROW_COUNT) {
@@ -91,6 +93,7 @@ public class Snake extends GameElement {
 	
 	/*
 	 * Get the size of the snake.
+	 * @return The size of the snake.
 	 */
 	public int getSize() {
 		return snake.size();
@@ -98,6 +101,7 @@ public class Snake extends GameElement {
 	
 	/*
 	 * Sets the direction of the snake.
+	 * @param direction The direction that the snake should move.
 	 */
 	public void setDirection(Direction direction){
 		/*
@@ -107,6 +111,9 @@ public class Snake extends GameElement {
 			this.direction = direction;
 	}
 	
+	/* 
+	 * Resets the Snake to the middle of the board.
+	 */
 	public void reset() {
 		/*
 		 * Create the head at the center of the board.
@@ -121,12 +128,21 @@ public class Snake extends GameElement {
 		direction = Direction.North;
 	}
 	
+	/*
+	 * Draw one snake tile.
+	 * @param x The horizontal position of the tile
+	 * @param y The vertical position of the tile
+	 * @param g The Graphics object
+	 */
 	@Override
 	public void draw(int x, int y, Graphics g) {
 		g.setColor(Color.BLACK);
 		g.fillRect(x , y, board.TILE_SIZE, board.TILE_SIZE);	
 	}
-
+	
+	/*
+	 * Collide with the snake.
+	 */
 	@Override
 	public void collide() {
 		game.gameOver();
